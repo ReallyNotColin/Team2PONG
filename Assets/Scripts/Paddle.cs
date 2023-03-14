@@ -6,7 +6,7 @@ using UnityEngine;
 public class Paddle : MonoBehaviour
 {
     public Vector2 dir;
-
+    float timer = 5f;
     [SerializeField] // what is a serializedfield
     public float speed = 0.01f;
 
@@ -37,6 +37,18 @@ public class Paddle : MonoBehaviour
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 transform.Translate(-Vector3.up * speed * Time.deltaTime);
+            }
+
+            // A timer needs to exist in the Update() function.
+            // This is a very scuffed version of a timer. Not generalized at all. Very hardcoded and specific.
+            // Find a better way to create, activate, and deactivate abilities.
+            if (transform.GetComponent<Paddle>().speed >= 9)
+            {
+                timer-=Time.deltaTime;
+                if(timer < 0)
+                {
+                   transform.GetComponent<Paddle>().speed = 4;
+                }
             }
         }
         else if (transform.CompareTag("PaddleLeft"))

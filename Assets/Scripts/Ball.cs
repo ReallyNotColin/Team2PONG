@@ -58,13 +58,13 @@ public class Ball : MonoBehaviour
             dir.y *= -1;
         }
         else if (c.gameObject.CompareTag("Left Boundary")){
-            print("right scores");
+           // print("right scores");
             scoreRight++;
             txtScoreRight.text = scoreRight.ToString();
             transform.position = origPos;
         }
         else if (c.gameObject.CompareTag("Right Boundary")){
-            print("left scores");
+           // print("left scores");
             scoreLeft++;
             txtScoreLeft.text = scoreLeft.ToString();
             transform.position = origPos;
