@@ -11,11 +11,13 @@ public class Ball : MonoBehaviour
 
     private int scoreLeft;
     private int scoreRight;
+    
 
     // VARIABLES 
     public float speed = 4;
     public Vector2 dir;
     private Vector2 origPos;
+    private int winning_score = 11;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +70,21 @@ public class Ball : MonoBehaviour
             scoreLeft++;
             txtScoreLeft.text = scoreLeft.ToString();
             transform.position = origPos;
+        }
+        // IF RIGHT PADDLE WINS
+        if (scoreRight >= winning_score && scoreLeft < winning_score)
+        {
+            Time.timeScale = 0; // stops time ; freezes game 
+            txtScoreRight.text = ("Winner!  " + scoreRight).ToString();
+            txtScoreLeft.text = ("Loser!    " + scoreLeft).ToString();
+
+        }
+        // IF LEFT PADDLE WINS 
+        if (scoreRight < winning_score && scoreLeft >= winning_score)
+        {
+            Time.timeScale = 0; // stops time ; freezes game 
+            txtScoreRight.text = ("Loser!   " + scoreRight).ToString();
+            txtScoreLeft.text = ("Winner!   " + scoreLeft).ToString();
         }
     }
 }
