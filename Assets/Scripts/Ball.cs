@@ -51,11 +51,16 @@ public class Ball : MonoBehaviour
     void Update()
     {
         transform.Translate(dir * speed * Time.deltaTime);
+        if (transform.position[0] > 9 || transform.position[0] < -9)
+        {
+            Time.timeScale = 0.1f;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D c) {
         if (c.gameObject.transform.tag.StartsWith("Paddle")){
             // x direction reversed
+            // reset the ball speed on collision
             if (speed > 4){
                 speed = 4;
             }
@@ -77,7 +82,10 @@ public class Ball : MonoBehaviour
             // change the audio clip and play it
             audioSrc.clip = Resources.Load<AudioClip>("death");
             audioSrc.Play();
-
+            if (Time.timeScale < 1)
+            {
+                Time.timeScale = 1;
+            }
 
         }
         else if (c.gameObject.CompareTag("Right Boundary")){
@@ -91,8 +99,10 @@ public class Ball : MonoBehaviour
             // change the audio clip and play it
             audioSrc.clip = Resources.Load<AudioClip>("death");
             audioSrc.Play();
-
-
+            if (Time.timeScale < 1)
+            {
+                Time.timeScale = 1;
+            }
         }
         // IF RIGHT PADDLE WINS
         if (scoreRight >= winning_score && scoreLeft < winning_score)

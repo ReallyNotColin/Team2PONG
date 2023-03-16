@@ -63,6 +63,16 @@ public class Paddle : MonoBehaviour
             {
                 transform.Translate(-Vector3.up * speed * Time.deltaTime);
             }
+
+            // reset the paddle speed
+            if (transform.GetComponent<Paddle>().speed >= 9)
+            {
+                timer -= Time.deltaTime;
+                if (timer < 0)
+                {
+                    transform.GetComponent<Paddle>().speed = 4;
+                }
+            }
         }
     }
     
