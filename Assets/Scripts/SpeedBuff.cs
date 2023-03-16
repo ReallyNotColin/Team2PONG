@@ -11,7 +11,7 @@ public class SpeedBuff : Powerup // Calls PowerUpObject
     public override void Apply(GameObject target)
     {
         // How to apply duration to this??? 
-        Debug.Log(target);
+        // check which object to apply the powerup to
         if (target.ToString()[0] == 'B') {
             target.GetComponent<Ball>().speed += speed_amount;
         }

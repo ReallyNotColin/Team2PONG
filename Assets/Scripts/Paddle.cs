@@ -13,14 +13,7 @@ public class Paddle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (transform.CompareTag("PaddleRight"))
-        {
 
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().color = new Color(1, 0, 1);
-        }
     }
 
     // Update is called once per frame
@@ -62,6 +55,16 @@ public class Paddle : MonoBehaviour
             if (Input.GetKey(KeyCode.S))
             {
                 transform.Translate(-Vector3.up * speed * Time.deltaTime);
+            }
+
+            // reset the paddle speed
+            if (transform.GetComponent<Paddle>().speed >= 9)
+            {
+                timer -= Time.deltaTime;
+                if (timer < 0)
+                {
+                    transform.GetComponent<Paddle>().speed = 4;
+                }
             }
         }
     }
