@@ -18,17 +18,19 @@ public class Ball : MonoBehaviour
     public Vector2 dir;
     private Vector2 origPos;
     private int winning_score = 11;
+    private AudioSource audioSrc;
 
     // Start is called before the first frame update
     void Start()
     {
+        // initialize score to 0 and text on screen to 0
         scoreLeft = 0;
         scoreRight = 0;
         txtScoreLeft.text = "0";
         txtScoreRight.text = "0";
         origPos = transform.position;
+        // generate a random integer to decide the direction of the ball
         float result = Random.Range(0f, 1f);
-        print(result);
         if (result < 0.5) {
             dir = Vector2.left;
         }
@@ -42,6 +44,7 @@ public class Ball : MonoBehaviour
         else {
             dir.y = -1;
         }
+        audioSrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -53,23 +56,43 @@ public class Ball : MonoBehaviour
     void OnCollisionEnter2D(Collision2D c) {
         if (c.gameObject.transform.tag.StartsWith("Paddle")){
             // x direction reversed
+            if (speed > 4){
+                speed = 4;
+            }
             dir.x *= -1;
+            audioSrc.clip = Resources.Load<AudioClip>("laserfire");
+            audioSrc.Play();
         }
         else if (c.gameObject.CompareTag("TopBottom Boundary")){
             // y direction reversed 
             dir.y *= -1;
         }
         else if (c.gameObject.CompareTag("Left Boundary")){
-           // print("right scores");
+            if (speed > 4){ 
+                speed = 4;
+            }
             scoreRight++;
             txtScoreRight.text = scoreRight.ToString();
             transform.position = origPos;
+            // change the audio clip and play it
+            audioSrc.clip = Resources.Load<AudioClip>("death");
+            audioSrc.Play();
+
+
         }
         else if (c.gameObject.CompareTag("Right Boundary")){
-           // print("left scores");
+            if (speed > 4){
+                speed = 4;
+            }
+            // print("left scores");
             scoreLeft++;
             txtScoreLeft.text = scoreLeft.ToString();
             transform.position = origPos;
+            // change the audio clip and play it
+            audioSrc.clip = Resources.Load<AudioClip>("death");
+            audioSrc.Play();
+
+
         }
         // IF RIGHT PADDLE WINS
         if (scoreRight >= winning_score && scoreLeft < winning_score)

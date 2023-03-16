@@ -11,8 +11,14 @@ public class SpeedBuff : Powerup // Calls PowerUpObject
     public override void Apply(GameObject target)
     {
         // How to apply duration to this??? 
-         target.GetComponent<Paddle>().speed += speed_amount;
-        
+        Debug.Log(target);
+        if (target.ToString()[0] == 'B') {
+            target.GetComponent<Ball>().speed += speed_amount;
+        }
+        else if (target.ToString()[0] == 'P') {
+            target.GetComponent<Paddle>().speed += speed_amount;
+        }
+
     }
 
                 
