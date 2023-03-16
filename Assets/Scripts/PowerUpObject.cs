@@ -12,8 +12,8 @@ public class PowerUpObject : MonoBehaviour
     {
         if (collision.gameObject.transform.tag.StartsWith("Paddle"))
         {
+            // make a new paddle game object
             GameObject paddle = collision.gameObject;
-
             Paddle paddleScript = paddle.GetComponent<Paddle>();
 
             if (paddleScript)
@@ -25,6 +25,7 @@ public class PowerUpObject : MonoBehaviour
         }
         if (collision.gameObject.transform.tag.StartsWith("Ball"))
         {
+            // make a new ball game object
             GameObject ball = collision.gameObject;
             Ball ballScript = ball.GetComponent<Ball>();
 
@@ -38,29 +39,14 @@ public class PowerUpObject : MonoBehaviour
 
          
     }
-    void Start()
-    {
-
-    }
-
+ 
     void Update()
     {
-        int randomPowerUp = Random.Range(0, 10000);
-        if (randomPowerUp == 5000)
+        // create a random int to decide if a powerup should spawn
+        int randomPowerUp = Random.Range(0, 5000);
+        if (randomPowerUp == 2500)
         {
-            // pick a location to spawn the powerup
-            int selectPowerUp = Random.Range(0, 3);
-            if (selectPowerUp == 0) {
-                transform.position = new Vector3(7.4f, 4, 0);
-            }
-            else if (selectPowerUp == 1) {
-                transform.position = new Vector3(-7.2f, -4, 0);
-            }
-            else if (selectPowerUp == 2){
-                transform.position = new Vector3(0, 4, 0);
-            }
-
-
+                transform.position = new Vector3(Random.Range(-7f, 7f), Random.Range(-4f, 4f), 0);
         }
     }
 }

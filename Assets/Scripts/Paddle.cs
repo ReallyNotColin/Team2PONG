@@ -13,14 +13,7 @@ public class Paddle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (transform.CompareTag("PaddleRight"))
-        {
 
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().color = new Color(1, 0, 1);
-        }
     }
 
     // Update is called once per frame
